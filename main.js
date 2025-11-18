@@ -1,49 +1,80 @@
-/* Practice Assignment 15:
-
-Complete this javascript file according to the individual instructions
-given in the comments.
-
-*** DO NOT CHANGE any of the code that you are not instructed to. */
-
 ////////////////////////
-// NOTE: Use the API endpoints available at
-// https://jsonplaceholder.typicode.com/
-// to get the data required in these exercises.
-// HINT: Read the documented Resources and Routes.
-// Also the guide:
-// https://jsonplaceholder.typicode.com/guide/
-///////////////////////
+// Practice Assignment 15
+////////////////////////
 
-// 1) Create a function named "getAllPosts".
-// Use Fetch with Async/Await to request
-// all the posts. The function should
-// return all the posts as JSON data.
+// 1) Get all posts
+async function getAllPosts() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const posts = await response.json();
+        return posts;
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
+}
 
-// 2) Create a function named "getAllUsers".
-// Use Fetch with Async/Await to request
-// all the users. The function should
-// return all the users as JSON data.
+// 2) Get all users
+async function getAllUsers() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const users = await response.json();
+        return users;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+    }
+}
 
-// 3) Create a function named "getComments".
-// This function needs to accept a "postID"
-// parameter.
-// Use Fetch with Async/Await to request
-// all the comments for the postID that
-// is passed in as a parameter.
-// The function should return all the
-// comments for the requested postID
-// as JSON data.
+// 3) Get comments for a specific post
+async function getComments(postID) {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postID}/comments`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const comments = await response.json();
+        return comments;
+    } catch (error) {
+        console.error(`Error fetching comments for post ${postID}:`, error);
+    }
+}
 
-// 4) Create a function named "getUser".
-// This function needs to accept a "userID"
-// parameter.
-// Use Fetch with Async/Await to request
-// the data for the requested user.
-// The function should return JSON data.
+// 4) Get a specific user
+async function getUser(userID) {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userID}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error(`Error fetching user ${userID}:`, error);
+    }
+}
 
-// 5) Create a function named "getTodosForUser".
-// This function needs to accept a "userID"
-// parameter.
-// Use Fetch with Async/Await to request
-// all of the todos for the requested user.
-// The function should return JSON data.
+// 5) Get todos for a specific user
+async function getTodosForUser(userID) {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userID}/todos`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const todos = await response.json();
+        return todos;
+    } catch (error) {
+        console.error(`Error fetching todos for user ${userID}:`, error);
+    }
+}
+
+// Example usage (uncomment to test):
+// getAllPosts().then(posts => console.log(posts));
+// getAllUsers().then(users => console.log(users));
+// getComments(1).then(comments => console.log(comments));
+// getUser(1).then(user => console.log(user));
+// getTodosForUser(1).then(todos => console.log(todos));
